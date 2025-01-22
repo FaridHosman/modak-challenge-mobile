@@ -65,5 +65,5 @@ const styles = StyleSheet.create({
   discount: {
     fontSize: 15,
     color: theme.colorPurple,
-  }
+  },
 });
