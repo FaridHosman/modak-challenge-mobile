@@ -13,7 +13,7 @@ export function ErrorAndLoadingHandler({
   error,
 }: ErrorAndLoadingHandlerProps) {
   if (error) {
-    return <Text style={styles.error}>{error.message}</Text>;
+    return <Text style={styles.error}>Unable to fetch product data</Text>; // Or error.message
   } else if (isLoading) {
     return <ActivityIndicator size="large" color={theme.colorPurple} />;
   } else {
