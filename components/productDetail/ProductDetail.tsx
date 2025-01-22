@@ -11,9 +11,9 @@ import {
 } from "react-native";
 import { theme } from "theme";
 import { ProductType } from "utils/types";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { registerForPushNotificationsAsync } from "utils/registerForPushNotificationsAsync";
-import * as Notifications from 'expo-notifications'
+import * as Notifications from "expo-notifications";
 
 interface ProductDetailProps {
   product?: ProductType;
@@ -25,20 +25,22 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const imageSize = Math.min(width / 1.5, 400);
 
   async function ScheduleNotifications(date: Date) {
-    let pushNotificationId
-    const result = await registerForPushNotificationsAsync()
-    if (result === 'granted') {
-      pushNotificationId = await Notifications.scheduleNotificationAsync({
+    const result = await registerForPushNotificationsAsync();
+    if (result === "granted") {
+      await Notifications.scheduleNotificationAsync({
         content: {
-          title: "Thing is due!",
+          title: `Reminder to buy ${product?.title}`,
         },
         trigger: {
           date: date,
-          channelId: 'default',
+          channelId: "default",
         },
-      })
+      });
     } else {
-      Alert.alert('Unable to schedule notification', 'Please enable notifications')
+      Alert.alert(
+        "Unable to schedule notification",
+        "Please enable notifications",
+      );
     }
   }
 
@@ -70,7 +72,10 @@ export function ProductDetail({ product }: ProductDetailProps) {
       <TouchableOpacity style={styles.button}>
         <Text>Add to Cart</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => setShowDatePicker(true)}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => setShowDatePicker(true)}
+      >
         <Text>Set reminder</Text>
       </TouchableOpacity>
       {showDatePicker && (
