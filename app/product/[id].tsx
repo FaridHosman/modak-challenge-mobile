@@ -1,8 +1,9 @@
 import { getProduct } from "api/productsApi";
 import { ErrorAndLoadingHandler } from "components/errorAndLoadingHandler/ErrorAndLoadingHandler";
+import { ProductDetail } from "components/productDetail/ProductDetail";
 import { useLocalSearchParams } from "expo-router";
 import { useProductQuery } from "hooks/useProductQuery";
-import { Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ProductType } from "utils/types";
 
 export default function Product() {
@@ -14,8 +15,17 @@ export default function Product() {
   );
 
   return (
-    <ErrorAndLoadingHandler isLoading={isLoading} error={error}>
-      <Text>Details of product {id} </Text>
-    </ErrorAndLoadingHandler>
+    <View style={styles.container}>
+      <ErrorAndLoadingHandler isLoading={isLoading} error={error}>
+        <ProductDetail product={data} />
+      </ErrorAndLoadingHandler>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+});

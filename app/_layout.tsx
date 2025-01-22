@@ -8,6 +8,18 @@ export default function Layout() {
     <QueryClientProvider client={queryClient}>
       <Stack>
         <Stack.Screen name="index" options={{ title: "Dummy Store" }} />
+        <Stack.Screen
+          name="product/[id]"
+          options={{
+            title: "Product Detail",
+          }}
+        />
+        <Stack.Screen
+          name="modal"
+          options={{
+            presentation: "modal",
+          }}
+        />
       </Stack>
     </QueryClientProvider>
   );

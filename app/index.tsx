@@ -1,7 +1,7 @@
 import { getProducts } from "api/productsApi";
 import { ErrorAndLoadingHandler } from "components/errorAndLoadingHandler/ErrorAndLoadingHandler";
 import { ProductCard } from "components/productCard/ProductCard";
-import { SortAndFilter } from "containers/header/SortAndFilter";
+import { SortAndFilter } from "components/sortAndFilter/SortAndFilter";
 import { StatusBar } from "expo-status-bar";
 import { useProductQuery } from "hooks/useProductQuery";
 import { useState } from "react";
@@ -20,13 +20,12 @@ export default function App() {
   );
   return (
     <View style={styles.container}>
+      <SortAndFilter setFilterBy={setFilterBy} setSortBy={setSortBy} />
       <ErrorAndLoadingHandler isLoading={isLoading} error={error}>
         <FlatList
+          contentContainerStyle={{ paddingBottom: 150 }} // Gotta be a better way
           style={styles.list}
           data={data?.products}
-          ListHeaderComponent={
-            <SortAndFilter setFilterBy={setFilterBy} setSortBy={setSortBy} />
-          }
           renderItem={({ item }) => <ProductCard product={item} />}
         />
       </ErrorAndLoadingHandler>
@@ -37,8 +36,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     backgroundColor: theme.colorLightBlue,
+    flex: 1,
   },
   list: {
     width: "100%",
