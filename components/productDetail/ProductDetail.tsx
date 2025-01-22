@@ -1,5 +1,6 @@
-import { Link } from "expo-router";
+import { useState } from "react";
 import {
+  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -10,14 +11,36 @@ import {
 } from "react-native";
 import { theme } from "theme";
 import { ProductType } from "utils/types";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { registerForPushNotificationsAsync } from "utils/registerForPushNotificationsAsync";
+import * as Notifications from 'expo-notifications'
 
 interface ProductDetailProps {
   product?: ProductType;
 }
 
 export function ProductDetail({ product }: ProductDetailProps) {
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const { width } = useWindowDimensions();
   const imageSize = Math.min(width / 1.5, 400);
+
+  async function ScheduleNotifications(date: Date) {
+    let pushNotificationId
+    const result = await registerForPushNotificationsAsync()
+    if (result === 'granted') {
+      pushNotificationId = await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Thing is due!",
+        },
+        trigger: {
+          date: date,
+          channelId: 'default',
+        },
+      })
+    } else {
+      Alert.alert('Unable to schedule notification', 'Please enable notifications')
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -47,11 +70,24 @@ export function ProductDetail({ product }: ProductDetailProps) {
       <TouchableOpacity style={styles.button}>
         <Text>Add to Cart</Text>
       </TouchableOpacity>
-      <Link href="/modal" style={styles.button}>
-        <TouchableOpacity>
-          <Text>Set reminder</Text>
-        </TouchableOpacity>
-      </Link>
+      <TouchableOpacity style={styles.button} onPress={() => setShowDatePicker(true)}>
+        <Text>Set reminder</Text>
+      </TouchableOpacity>
+      {showDatePicker && (
+        <View style={styles.container}>
+          <DateTimePicker
+            value={new Date()}
+            mode="date"
+            display="default"
+            onChange={(_, date) => {
+              if (date) {
+                ScheduleNotifications(date);
+                setShowDatePicker(false);
+              }
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 }

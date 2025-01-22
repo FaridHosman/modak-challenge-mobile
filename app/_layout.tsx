@@ -14,12 +14,6 @@ export default function Layout() {
             title: "Product Detail",
           }}
         />
-        <Stack.Screen
-          name="modal"
-          options={{
-            presentation: "modal",
-          }}
-        />
       </Stack>
     </QueryClientProvider>
   );
