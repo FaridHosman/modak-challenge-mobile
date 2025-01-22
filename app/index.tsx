@@ -3,10 +3,10 @@ import { ErrorAndLoadingHandler } from "components/errorAndLoadingHandler/ErrorA
 import { ProductCard } from "components/productCard/ProductCard";
 import { SortAndFilter } from "containers/header/SortAndFilter";
 import { StatusBar } from "expo-status-bar";
+import { useProductQuery } from "hooks/useProductQuery";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { theme } from "theme";
-import { useProductQuery } from "utils/hooks";
 import { ProductListResponseType, SortOptionsValueType } from "utils/types";
 
 

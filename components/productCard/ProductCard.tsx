@@ -10,10 +10,7 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
   return (
-    <Link style={styles.container} href={{
-      pathname: '/product/[id]',
-      params: { id: product.id },
-    }}>
+    <Link style={styles.container} href={`/product/${product.id}`}>
       <Image
         style={styles.image}
         source={{ uri: product.thumbnail }}
@@ -46,24 +43,24 @@ const styles = StyleSheet.create({
     elevation: 3, //shadow props only work on iOS. On Android you'll need to add an elevation instead.
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 5,
   },
   content: {
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginLeft: 18,
-
   },
   title: {
     color: theme.colorPurple,
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold"
   },
   price: {
-
+    fontSize: 15,
+    fontWeight: "bold",
   },
   rating: {
-
+    fontSize: 15,
   },
 })

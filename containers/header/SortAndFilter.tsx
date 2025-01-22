@@ -1,8 +1,8 @@
 import { getCategoriesAsDropdownOptions } from "api/productsApi";
+import { useProductQuery } from "hooks/useProductQuery";
 import { View, Text, StyleSheet } from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 import { sortOptions } from "utils/constants";
-import { useProductQuery } from "utils/hooks";
 import { SortOptionsValueType } from "utils/types";
 
 interface SortAndFilterProps {
