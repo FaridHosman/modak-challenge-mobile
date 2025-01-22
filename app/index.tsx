@@ -5,15 +5,19 @@ import { SortAndFilter } from "containers/header/SortAndFilter";
 import { StatusBar } from "expo-status-bar";
 import { useProductQuery } from "hooks/useProductQuery";
 import { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { theme } from "theme";
 import { ProductListResponseType, SortOptionsValueType } from "utils/types";
 
-
 export default function App() {
-  const [filterBy, setFilterBy] = useState<string>()
-  const [sortBy, setSortBy] = useState<SortOptionsValueType>()
-  const { data, isLoading, error } = useProductQuery<ProductListResponseType>(() => getProducts(filterBy, sortBy), 'products', filterBy, sortBy);
+  const [filterBy, setFilterBy] = useState<string>();
+  const [sortBy, setSortBy] = useState<SortOptionsValueType>();
+  const { data, isLoading, error } = useProductQuery<ProductListResponseType>(
+    () => getProducts(filterBy, sortBy),
+    "products",
+    filterBy,
+    sortBy,
+  );
   return (
     <View style={styles.container}>
       <ErrorAndLoadingHandler isLoading={isLoading} error={error}>
@@ -21,9 +25,7 @@ export default function App() {
           style={styles.list}
           data={data?.products}
           ListHeaderComponent={
-            <SortAndFilter
-              setFilterBy={setFilterBy}
-              setSortBy={setSortBy} />
+            <SortAndFilter setFilterBy={setFilterBy} setSortBy={setSortBy} />
           }
           renderItem={({ item }) => <ProductCard product={item} />}
         />
@@ -35,10 +37,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
     backgroundColor: theme.colorLightBlue,
   },
   list: {
-    width: '100%',
-  }
+    width: "100%",
+  },
 });

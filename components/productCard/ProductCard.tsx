@@ -1,20 +1,16 @@
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { theme } from "theme";
 import { ProductType } from "utils/types";
 
 interface ProductCardProps {
-  product: ProductType
+  product: ProductType;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const router = useRouter();
   return (
     <Link style={styles.container} href={`/product/${product.id}`}>
-      <Image
-        style={styles.image}
-        source={{ uri: product.thumbnail }}
-      />
+      <Image style={styles.image} source={{ uri: product.thumbnail }} />
       <View style={styles.content}>
         <Text style={styles.title}>{product.title}</Text>
         <Text style={styles.rating}>★ {product.rating} / 5</Text>
@@ -54,7 +50,7 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colorPurple,
     fontSize: 15,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   price: {
     fontSize: 15,
@@ -63,4 +59,4 @@ const styles = StyleSheet.create({
   rating: {
     fontSize: 15,
   },
-})
+});

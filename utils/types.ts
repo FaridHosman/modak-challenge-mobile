@@ -1,20 +1,24 @@
 export type DropdownOptionType = {
   value: string;
   label: string;
-}
+};
 
 export type CategoryType = {
   slug: string;
   name: string;
   url: string;
-}
+};
 
 export type SortOptionsType = {
-  value: SortOptionsValueType
+  value: SortOptionsValueType;
   label: string;
 };
 
-export type SortOptionsValueType = "rating-desc" | "rating-asc" | "price-desc" | "price-asc"
+export type SortOptionsValueType =
+  | "rating-desc"
+  | "rating-asc"
+  | "price-desc"
+  | "price-asc";
 
 export type ProductListResponseType = {
   products: ProductType[];

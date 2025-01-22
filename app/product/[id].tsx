@@ -1,24 +1,21 @@
 import { getProduct } from "api/productsApi";
+import { ErrorAndLoadingHandler } from "components/errorAndLoadingHandler/ErrorAndLoadingHandler";
 import { useLocalSearchParams } from "expo-router";
 import { useProductQuery } from "hooks/useProductQuery";
-import { StyleSheet, Text, View } from "react-native";
+import { Text } from "react-native";
 import { ProductType } from "utils/types";
 
-export function product() {
+export default function Product() {
   const { id } = useLocalSearchParams();
-  const { isLoading, data, error } = useProductQuery<ProductType>(() => getProduct(id as string), 'product-detail', id as string);
+  const { isLoading, data, error } = useProductQuery<ProductType>(
+    () => getProduct(id as string),
+    "product-detail",
+    id as string,
+  );
 
   return (
-    <View style={styles.container}>
-      <Text>Details of user {id} </Text>
-    </View>
+    <ErrorAndLoadingHandler isLoading={isLoading} error={error}>
+      <Text>Details of product {id} </Text>
+    </ErrorAndLoadingHandler>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
