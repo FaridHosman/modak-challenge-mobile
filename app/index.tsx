@@ -1,8 +1,11 @@
 import { getProducts } from "api/productsApi";
 import { ErrorAndLoadingHandler } from "components/errorAndLoadingHandler/ErrorAndLoadingHandler";
+import { ProductCard } from "components/productCard/ProductCard";
+import { SortAndFilter } from "containers/header/SortAndFilter";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { theme } from "theme";
 import { useProductQuery } from "utils/hooks";
 import { ProductListResponseType, SortOptionsValueType } from "utils/types";
 
@@ -14,7 +17,16 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ErrorAndLoadingHandler isLoading={isLoading} error={error}>
-        <Text>Open up App.tsx to start working on your app!</Text>
+        <FlatList
+          style={styles.list}
+          data={data?.products}
+          ListHeaderComponent={
+            <SortAndFilter
+              setFilterBy={setFilterBy}
+              setSortBy={setSortBy} />
+          }
+          renderItem={({ item }) => <ProductCard product={item} />}
+        />
       </ErrorAndLoadingHandler>
       <StatusBar style="auto" />
     </View>
@@ -23,9 +35,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100%',
+    backgroundColor: theme.colorLightBlue,
   },
+  list: {
+    width: '100%',
+  }
 });
