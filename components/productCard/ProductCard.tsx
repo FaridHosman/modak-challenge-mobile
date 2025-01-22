@@ -15,6 +15,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <Text style={styles.title}>{product.title}</Text>
         <Text style={styles.rating}>★ {product.rating} / 5</Text>
         <Text style={styles.price}>${product.price}</Text>
+        <Text style={styles.discount}>{product.discountPercentage} % Off!</Text>
       </View>
     </Link>
   );
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
     color: theme.colorPurple,
     fontSize: 15,
     fontWeight: "bold",
+    width: "100%",
+    maxWidth: 270,
   },
   price: {
     fontSize: 15,
@@ -59,4 +62,8 @@ const styles = StyleSheet.create({
   rating: {
     fontSize: 15,
   },
+  discount: {
+    fontSize: 15,
+    color: theme.colorPurple,
+  }
 });

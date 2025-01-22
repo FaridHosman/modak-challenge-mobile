@@ -29,7 +29,7 @@ export default function App() {
           renderItem={({ item }) => <ProductCard product={item} />}
         />
       </ErrorAndLoadingHandler>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </View>
   );
 }
